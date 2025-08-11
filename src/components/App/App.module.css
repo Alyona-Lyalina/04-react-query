@@ -1,3 +1,35 @@
 .app {
-    padding: 0 16px;
+  padding: 0 16px;
+}
+
+.appBackground {
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  background-image: url("/background.svg");
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  
+
+  padding-top: 80px;
+  background-attachment: fixed;
+}
+
+.appBackground::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 1;
+}
+
+.content {
+  padding-top: 180px; 
+  z-index: 1;
 }
