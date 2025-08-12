@@ -4,10 +4,10 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 interface SearchBarProps {
-  handleSubmit: (query: string) => void;
+  onSubmit: (query: string) => void;
 }
 
-export default function SearchBar({ handleSubmit }: SearchBarProps) {
+export default function SearchBar({ onSubmit }: SearchBarProps) {
   async function action(formData: FormData) {
     const getQuery = formData.get("query");
 
@@ -22,7 +22,7 @@ export default function SearchBar({ handleSubmit }: SearchBarProps) {
       return;
     }
 
-    handleSubmit(query);
+   onSubmit(query);
   }
 
   return (

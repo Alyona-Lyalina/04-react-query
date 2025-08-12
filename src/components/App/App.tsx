@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import css from "./App.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { fetchMovies } from "../services/moviesApi";
@@ -12,21 +13,23 @@ export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [load, setLoad] = useState(false);
   const [isError, setIsError] = useState(false);
-
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const handleSubmit = async (value: string) => {
     setLoad(true);
     setIsError(false);
+    setMovies([]);
+
     try {
       const data = await fetchMovies(value);
       if (!data.length) {
+         toast.error("No movies found for your request.");
         return;
       }
-
       setMovies(data);
     } catch {
       setIsError(true);
+      setMovies([]); 
     } finally {
       setLoad(false);
     }
@@ -43,11 +46,13 @@ export default function App() {
   return (
     <div className={css.appBackground}>
       <div className={css.content}>
-        <SearchBar handleSubmit={handleSubmit} />
+        <SearchBar onSubmit={handleSubmit} />
       </div>
       {load && <Loader />}
       {isError && <ErrorMessage />}
-      {!load && <MovieGrid movies={movies} onSelect={handleSelectMovie} />}
+      {!load && !isError && movies.length > 0 && (
+        <MovieGrid movies={movies} onSelect={handleSelectMovie} />
+      )}
 
       {selectedMovie && (
         <MovieModal movie={selectedMovie} onClose={handleCloseModal} />

@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import css from "./MovieModal.module.css";
 import type { Movie } from "../types/movie";
-import noBackdrop from "../../assets/images/no-backdrop.jpg";
-
 
 
 interface ModalProps {
@@ -46,7 +44,7 @@ export default function MovieModal({ movie, onClose }: ModalProps) {
 
 const backdropUrl = movie.backdrop_path
   ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-  : noBackdrop;
+  : '';
 
   return createPortal(
     <div
@@ -64,7 +62,9 @@ const backdropUrl = movie.backdrop_path
           &times;
         </button>
 
-        <img src={backdropUrl} alt={movie.title} className={css.image} />
+        {backdropUrl && (
+          <img src={backdropUrl} alt={movie.title} className={css.image} />
+        )}
 
         <div className={css.content}>
           <h2>{movie.title}</h2>
