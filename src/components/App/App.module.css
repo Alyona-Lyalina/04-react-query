@@ -12,7 +12,6 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   width: 100%;
-  
 
   padding-top: 80px;
   background-attachment: fixed;
@@ -30,6 +29,7 @@
 }
 
 .content {
-  padding-top: 180px; 
-  z-index: 1;
+  padding-top: 180px;
+  position: relative ;
+  z-index: 2;
 }

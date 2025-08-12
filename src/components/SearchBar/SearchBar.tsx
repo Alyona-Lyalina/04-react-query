@@ -1,37 +1,58 @@
-// import React, {useState} from "react"; 
+
 import styles from "./SearchBar.module.css";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function SearchBar() {
 
-    // const [search, useSearch] = useState()
+interface SearchBarProps {
+  handleSubmit: (query: string) => void;
+}
+
+export default function SearchBar({ handleSubmit }: SearchBarProps) {
+  async function action(formData: FormData) {
+    const getQuery = formData.get("query");
+
+    if (typeof getQuery !== "string") {
+      toast.error("Expected query to be a string.");
+      return;
+    }
+
+    const query = getQuery.trim();
+    if (!query) {
+      toast.error("Please enter your search query.");
+      return;
+    }
+
+    handleSubmit(query);
+  }
 
   return (
-      <>
-          <header className={styles.header}>
-            <div className={styles.container}>
-                <a
-                    className={styles.link}
-                    href="https://www.themoviedb.org/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by TMDB
-                </a>
-                <form className={styles.form}>
-                    <input
-                        className={styles.input}
-                        type="text"
-                        name="query"
-                        autoComplete="off"
-                        placeholder="Search movies..."
-                        autoFocus
-                    />
-                    <button className={styles.button} type="submit">
-                        Search
-                    </button>
-                </form>
-            </div>
-        </header>
-      </>
+    <>
+      <header className={styles.header}>
+        <div className={styles.container}>
+          <a
+            className={styles.link}
+            href="https://www.themoviedb.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Powered by TMDB
+          </a>
+          <form className={styles.form} action={action}>
+            <input
+              className={styles.input}
+              type="text"
+              name="query"
+              autoComplete="off"
+              placeholder="Search movies..."
+              autoFocus
+            />
+            <button className={styles.button} type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </header>
+      <Toaster />
+    </>
   );
 }
