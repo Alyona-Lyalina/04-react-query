@@ -1,5 +1,5 @@
-import axios from "axios";
-import type { Movie } from "../types/movie";
+import axios from 'axios';
+import type { Movie } from '../types/movie';
 
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
