@@ -1,4 +1,3 @@
-
 import styles from './SearchBar.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 

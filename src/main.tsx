@@ -5,9 +5,12 @@ import App from './components/App/App';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; 
 
+// Create a QueryClient instance for React Query
 const queryClient = new QueryClient();
 
-// Create a React root and render the App inside the element with id="root"
+// Render the App component inside the root element
+// Wrap App with QueryClientProvider to enable React Query
+// ReactQueryDevtools helps debug React Query caches
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
