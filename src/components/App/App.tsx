@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import ReactPaginate from "react-paginate";
@@ -24,9 +24,11 @@ export const App = () => {
       placeholderData: keepPreviousData,
     });
 
-  if (isFetchedAfterMount && data?.results.length === 0) {
-    toast.error("No movies found for your request.");
-  }
+    useEffect(() => {
+      if (isFetchedAfterMount && data?.results.length === 0) {
+        toast.error("No movies found for your request.");
+      }
+    }, [data, isFetchedAfterMount]);
 
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
